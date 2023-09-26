@@ -7,11 +7,15 @@ const getAll = async () => {
 
 const createTask = async (task) => {
     const {title} = task;
+    const dateUTC = new Date(Date.now()).toUTCString();
+    
     const insertSql = 'INSERT INTO tasks(title, status, created_at) VALUES(?,?,?)';
-    const createdTask = await connection.execute(insertSql, [title, 'Not Started', Date.now().toLocaleString()]);
-    return createdTask;
+    const [createdTask] = await connection.execute(insertSql, [title, 'Not Started', dateUTC]);
+    
+    return {insertId: createdTask.insertId};
 };
 
 module.exports = {
-    getAll
+    getAll,
+    createTask
 };

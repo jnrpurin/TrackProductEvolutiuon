@@ -9,8 +9,8 @@ const getAll = async (request, response) => {
 };
 
 const createTask = async (req, res) => {
-    //const cTask = await taskModel.createTask();
-    return res.status(201).json(req.body);
+    const cTask = await taskModel.createTask(req.body);
+    return res.status(201).json(cTask);
 };
 
 const postLogin = (req, res) => {
