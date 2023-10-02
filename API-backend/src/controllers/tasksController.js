@@ -13,6 +13,18 @@ const createTask = async (req, res) => {
     return res.status(201).json(cTask);
 };
 
+const deleteTask = async (req, res) => {
+    const { id } = req.params;
+    await taskModel.deleteTask(id);
+    return res.status(204).json();
+};
+
+const updateTask = async (req, res) => {
+    const { id } = req.params;
+    await taskModel.updateTask(id, req.body);
+    return res.status(204).json();
+};
+
 const postLogin = (req, res) => {
     if (req.body.user === process.env.MYSQL_USER &&
         req.body.password === process.env.MYSQL_PASS) {
@@ -43,6 +55,8 @@ function verifyJWT(req, res, next){
 module.exports = {
     getAll,
     createTask,
+    deleteTask,
+    updateTask,
     postLogin,
     postLogout,
     verifyJWT

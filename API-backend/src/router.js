@@ -1,19 +1,26 @@
 const express = require('express');
 const taskController = require('./controllers/tasksController');
-
+const taskMiddleware = require('./middlewares/tasksMiddleware');
 const router = express.Router();
-
-//app.get('/', (request, response) => response.status(200).send('Hello_nodemon!!!'));
 
 //Open:
 router.get('/tasks', taskController.getAll);
 
 //it will need the token to create the task
-router.post('/tasks', taskController.verifyJWT, taskController.createTask);
+router.post('/tasks', taskController.verifyJWT, 
+    taskMiddleware.validateTitle,
+    taskController.createTask);
+
+router.delete('/tasks/:id', taskController.verifyJWT, 
+    taskController.deleteTask);
+
+router.put('/tasks/:id', taskController.verifyJWT, 
+    taskMiddleware.validateTitle,
+    taskMiddleware.validateStatus,
+    taskController.updateTask);
 
 //webToken:
 router.post('/login', taskController.postLogin);
-
 router.post('/logout', taskController.postLogout);
 
 module.exports = router;
