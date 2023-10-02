@@ -1,4 +1,3 @@
-//34 min - criar a camada services
 const taskModel = require('../models/taskModels');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -34,7 +33,7 @@ const postLogin = (req, res) => {
     res.status(401).end();
 };
 
-const blacklist = []; //should be a table in the DB (MongoDB has an option to remove records after specific time)
+const blacklist = []; //it should be a table in the DB (MongoDB has an option to remove records after specific time)
 const postLogout = (req, res) => {
     blacklist.push(req.headers['x-access-token']);
     res.end();

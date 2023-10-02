@@ -3,10 +3,8 @@ const taskController = require('./controllers/tasksController');
 const taskMiddleware = require('./middlewares/tasksMiddleware');
 const router = express.Router();
 
-//Open:
 router.get('/tasks', taskController.getAll);
 
-//it will need the token to create the task
 router.post('/tasks', taskController.verifyJWT, 
     taskMiddleware.validateTitle,
     taskController.createTask);
