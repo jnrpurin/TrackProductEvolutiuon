@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.get('/tasks', taskController.getAll);
 
-router.post('/tasks', taskController.verifyJWT, 
+//taskController.verifyJWT, 
+router.post('/tasks', 
     taskMiddleware.validateTitle,
     taskController.createTask);
 
